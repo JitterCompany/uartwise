@@ -261,7 +261,7 @@ U 1 1 5E1A29F6
 P 8500 1700
 F 0 "TP2" H 8558 1818 50  0000 L CNN
 F 1 "TestPoint" H 8558 1727 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 8700 1700 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 8700 1700 50  0001 C CNN
 F 3 "~" H 8700 1700 50  0001 C CNN
 	1    8500 1700
 	1    0    0    -1  
@@ -273,7 +273,7 @@ U 1 1 5E1A34F1
 P 7800 1700
 F 0 "TP1" H 7600 2000 50  0000 L CNN
 F 1 "TestPoint" H 7350 1900 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 8000 1700 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 8000 1700 50  0001 C CNN
 F 3 "~" H 8000 1700 50  0001 C CNN
 	1    7800 1700
 	1    0    0    -1  
@@ -370,12 +370,12 @@ Wire Wire Line
 $Comp
 L Device:Battery_Cell BT1
 U 1 1 5E213B2E
-P 900 5700
-F 0 "BT1" H 1018 5796 50  0000 L CNN
-F 1 "Battery_Cell" H 1018 5705 50  0000 L CNN
-F 2 "Jitter_Footprints:BatteryHolder_Keystone_1042(P)__1043(P)_1x18650" V 900 5760 50  0001 C CNN
-F 3 "~" V 900 5760 50  0001 C CNN
-	1    900  5700
+P 900 5600
+F 0 "BT1" H 1018 5696 50  0000 L CNN
+F 1 "Battery_Cell" H 600 5550 50  0000 L CNN
+F 2 "Jitter_Footprints:BatteryHolder_Keystone_1043(p)_1x18650" V 900 5660 50  0001 C CNN
+F 3 "~" V 900 5660 50  0001 C CNN
+	1    900  5600
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -522,17 +522,6 @@ F 2 "Capacitor_SMD:C_0805_2012Metric" H 3350 6850 50  0001 C CNN
 F 3 "~" H 3350 6850 50  0001 C CNN
 	1    3350 6850
 	-1   0    0    1   
-$EndComp
-$Comp
-L Regulator_Switching:TLV61046ADB U5
-U 1 1 5E2444EE
-P 2100 6800
-F 0 "U5" H 2100 7225 50  0000 C CNN
-F 1 "TLV61046ADB" H 2100 7134 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-6" H 2150 6650 50  0001 L CIN
-F 3 "http://www.ti.com/lit/ds/symlink/tlv61046a.pdf" H 2100 6900 50  0001 C CNN
-	1    2100 6800
-	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR049
@@ -724,21 +713,10 @@ F 3 "" H 4850 6400 50  0001 C CNN
 $EndComp
 Text Label 6700 5900 2    50   ~ 0
 TX1
-$Comp
-L Switch:SW_SPST SW2
-U 1 1 5E2A34B5
-P 1350 5450
-F 0 "SW2" H 1350 5685 50  0000 C CNN
-F 1 "SW_SPST" H 1350 5594 50  0000 C CNN
-F 2 "Button_Switch_SMD:SW_SPDT_CK-JS102011SAQN" H 1350 5450 50  0001 C CNN
-F 3 "~" H 1350 5450 50  0001 C CNN
-	1    1350 5450
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	1550 5450 1700 5450
+	1650 5450 1700 5450
 Wire Wire Line
-	900  5500 900  5450
+	900  5400 900  5350
 $Comp
 L Jitter_Components:sn74lv1t34 U4
 U 1 1 5E2B9390
@@ -932,7 +910,7 @@ U 1 1 5E17A844
 P 3100 6600
 F 0 "TP4" H 2900 6900 50  0000 L CNN
 F 1 "TestPoint" H 2650 6800 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 3300 6600 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 3300 6600 50  0001 C CNN
 F 3 "~" H 3300 6600 50  0001 C CNN
 	1    3100 6600
 	1    0    0    -1  
@@ -948,7 +926,7 @@ U 1 1 5E17BE10
 P 2350 5450
 F 0 "TP3" H 2150 5750 50  0000 L CNN
 F 1 "TestPoint" H 1900 5850 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 2550 5450 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 2550 5450 50  0000 C CNN
 F 3 "~" H 2550 5450 50  0001 C CNN
 	1    2350 5450
 	1    0    0    -1  
@@ -1012,12 +990,12 @@ NoConn ~ 2650 2550
 $Comp
 L power:GND #PWR035
 U 1 1 5E1CD0E3
-P 900 6000
-F 0 "#PWR035" H 900 5750 50  0001 C CNN
-F 1 "GND" H 905 5827 50  0000 C CNN
-F 2 "" H 900 6000 50  0001 C CNN
-F 3 "" H 900 6000 50  0001 C CNN
-	1    900  6000
+P 900 5900
+F 0 "#PWR035" H 900 5650 50  0001 C CNN
+F 1 "GND" H 905 5727 50  0000 C CNN
+F 2 "" H 900 5900 50  0001 C CNN
+F 3 "" H 900 5900 50  0001 C CNN
+	1    900  5900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1074,7 +1052,7 @@ Debug UART
 Wire Wire Line
 	4900 2850 4800 2850
 Wire Wire Line
-	900  5800 900  5900
+	900  5700 900  5800
 Connection ~ 3600 5450
 Wire Wire Line
 	3600 5450 3650 5450
@@ -1122,157 +1100,11 @@ F 3 "" H 5050 1200 50  0001 C CNN
 	1    5050 1200
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	12950 3200 12700 3200
-Wire Wire Line
-	12700 3000 12950 3000
-Wire Wire Line
-	12950 2800 12700 2800
-Text Label 12950 3200 0    50   ~ 0
-encoder_LED_B
-Text Label 12950 3000 0    50   ~ 0
-encoder_LED_G
-Text Label 12950 2800 0    50   ~ 0
-encoder_LED_R
-Wire Wire Line
-	12300 2500 12200 2500
-Wire Wire Line
-	12300 1800 12300 2500
-Wire Wire Line
-	11450 2500 11600 2500
-Wire Wire Line
-	11450 2700 11600 2700
-Text Label 11450 2700 0    50   ~ 0
-B
-Text Label 11450 2500 0    50   ~ 0
-A
-Wire Wire Line
-	11000 2600 11600 2600
-$Comp
-L power:GND #PWR013
-U 1 1 5E2C9072
-P 11000 2600
-F 0 "#PWR013" H 11000 2350 50  0001 C CNN
-F 1 "GND" H 11005 2427 50  0000 C CNN
-F 2 "" H 11000 2600 50  0001 C CNN
-F 3 "" H 11000 2600 50  0001 C CNN
-	1    11000 2600
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR04
-U 1 1 5E2C88A5
-P 12600 1800
-F 0 "#PWR04" H 12600 1650 50  0001 C CNN
-F 1 "+3V3" H 12615 1973 50  0000 C CNN
-F 2 "" H 12600 1800 50  0001 C CNN
-F 3 "" H 12600 1800 50  0001 C CNN
-	1    12600 1800
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR08
-U 1 1 5E2C84C8
-P 12500 2000
-F 0 "#PWR08" H 12500 1750 50  0001 C CNN
-F 1 "GND" H 12505 1827 50  0000 C CNN
-F 2 "" H 12500 2000 50  0001 C CNN
-F 3 "" H 12500 2000 50  0001 C CNN
-	1    12500 2000
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR015
-U 1 1 5E2C7E67
-P 11900 3300
-F 0 "#PWR015" H 11900 3050 50  0001 C CNN
-F 1 "GND" H 11905 3127 50  0000 C CNN
-F 2 "" H 11900 3300 50  0001 C CNN
-F 3 "" H 11900 3300 50  0001 C CNN
-	1    11900 3300
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	12500 1800 12300 1800
-Wire Wire Line
-	12600 1800 12500 1800
-Connection ~ 12500 1800
-$Comp
-L Device:C_Small C5
-U 1 1 5E2C6D82
-P 12500 1900
-F 0 "C5" H 12592 1946 50  0000 L CNN
-F 1 "100nF" H 12592 1855 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 12500 1900 50  0001 C CNN
-F 3 "~" H 12500 1900 50  0001 C CNN
-	1    12500 1900
-	1    0    0    -1  
-$EndComp
-Text Label 12200 2700 0    50   ~ 0
-SW
-Wire Wire Line
-	12300 3200 12400 3200
-Wire Wire Line
-	12300 3100 12300 3200
-Wire Wire Line
-	12200 3100 12300 3100
-Wire Wire Line
-	12400 3000 12200 3000
-Wire Wire Line
-	12300 2800 12400 2800
-Wire Wire Line
-	12300 2900 12300 2800
-Wire Wire Line
-	12200 2900 12300 2900
-$Comp
-L Device:R R2
-U 1 1 5E2AA621
-P 12550 2800
-F 0 "R2" V 12450 2750 50  0000 C CNN
-F 1 "220" V 12550 2800 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 12480 2800 50  0001 C CNN
-F 3 "~" H 12550 2800 50  0001 C CNN
-	1    12550 2800
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R3
-U 1 1 5E2A3775
-P 12550 3000
-F 0 "R3" V 12450 2950 50  0000 C CNN
-F 1 "220" V 12550 3000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 12480 3000 50  0001 C CNN
-F 3 "~" H 12550 3000 50  0001 C CNN
-	1    12550 3000
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R4
-U 1 1 5E27BE44
-P 12550 3200
-F 0 "R4" V 12450 3150 50  0000 C CNN
-F 1 "220" V 12550 3200 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 12480 3200 50  0001 C CNN
-F 3 "~" H 12550 3200 50  0001 C CNN
-	1    12550 3200
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR048
-U 1 1 5E274ABE
-P 13650 7000
-F 0 "#PWR048" H 13650 6750 50  0001 C CNN
-F 1 "GND" H 13655 6827 50  0000 C CNN
-F 2 "" H 13650 7000 50  0001 C CNN
-F 3 "" H 13650 7000 50  0001 C CNN
-	1    13650 7000
-	-1   0    0    -1  
-$EndComp
-Text Label 14000 6800 0    50   ~ 0
-SW
 Text Label 14000 6100 0    50   ~ 0
-B
+SW
 Text Label 14000 5350 0    50   ~ 0
+B
+Text Label 14000 6800 0    50   ~ 0
 A
 $Comp
 L power:+3V3 #PWR033
@@ -1298,15 +1130,15 @@ F 3 "" H 13650 5150 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	11250 6800 11950 6800
-Text Label 11250 6800 0    50   ~ 0
+Text Label 11250 6100 0    50   ~ 0
 encoder_BTN
 Wire Wire Line
 	11250 6100 11950 6100
-Text Label 11250 6100 0    50   ~ 0
+Text Label 11250 5350 0    50   ~ 0
 encoder_B
 Wire Wire Line
 	11250 5350 11950 5350
-Text Label 11250 5350 0    50   ~ 0
+Text Label 11250 6800 0    50   ~ 0
 encoder_A
 $Comp
 L power:GND #PWR047
@@ -1365,12 +1197,12 @@ Connection ~ 13650 6800
 $Comp
 L Device:R_Small R13
 U 1 1 5E228077
-P 13650 6900
-F 0 "R13" V 13454 6900 50  0000 C CNN
-F 1 "10k" V 13545 6900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" H 13650 6900 50  0001 C CNN
-F 3 "~" H 13650 6900 50  0001 C CNN
-	1    13650 6900
+P 13650 6700
+F 0 "R13" V 13454 6700 50  0000 C CNN
+F 1 "10k" V 13545 6700 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 13650 6700 50  0001 C CNN
+F 3 "~" H 13650 6700 50  0001 C CNN
+	1    13650 6700
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -1411,7 +1243,7 @@ U 1 1 5E2208A7
 P 13650 6000
 F 0 "R7" V 13454 6000 50  0000 C CNN
 F 1 "10k" V 13545 6000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" H 13650 6000 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 13650 6000 50  0001 C CNN
 F 3 "~" H 13650 6000 50  0001 C CNN
 	1    13650 6000
 	-1   0    0    1   
@@ -1454,7 +1286,7 @@ U 1 1 5E21C14E
 P 13650 5250
 F 0 "R5" V 13454 5250 50  0000 C CNN
 F 1 "10k" V 13545 5250 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" H 13650 5250 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 13650 5250 50  0001 C CNN
 F 3 "~" H 13650 5250 50  0001 C CNN
 	1    13650 5250
 	-1   0    0    1   
@@ -1469,17 +1301,6 @@ F 2 "Resistor_SMD:R_0402_1005Metric" H 13400 5350 50  0001 C CNN
 F 3 "~" H 13400 5350 50  0001 C CNN
 	1    13400 5350
 	0    1    1    0   
-$EndComp
-$Comp
-L Jitter_Components:Rotary_Encoder_Switch_RGB SW1
-U 1 1 5E2A0994
-P 11900 2600
-F 0 "SW1" H 11900 2967 50  0000 C CNN
-F 1 "Rotary_Encoder_Switch_RGB" H 11850 1600 50  0000 C CNN
-F 2 "Jitter_Footprints:Encoder_Switch_RGB_EC12PLRGBSDVBF" H 11750 2760 50  0001 C CNN
-F 3 "http://dlnmh9ip6v2uc.cloudfront.net/datasheets/Components/Switches/EC12PLRGBSDVBF-D-25K-24-24C-6108-6HSPEC.pdf" H 11900 2860 50  0001 C CNN
-	1    11900 2600
-	1    0    0    -1  
 $EndComp
 $Comp
 L 74xGxx:74LVC3G17 U2
@@ -1593,19 +1414,19 @@ F 3 "~" H 4350 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	950  5450 1150 5450
+	950  5350 1250 5350
 Wire Wire Line
-	900  5450 950  5450
-Connection ~ 950  5450
+	900  5350 950  5350
+Connection ~ 950  5350
 $Comp
 L power:PWR_FLAG #FLG01
 U 1 1 5E1CEF08
-P 950 5450
-F 0 "#FLG01" H 950 5525 50  0001 C CNN
-F 1 "PWR_FLAG" H 950 5623 50  0000 C CNN
-F 2 "" H 950 5450 50  0001 C CNN
-F 3 "~" H 950 5450 50  0001 C CNN
-	1    950  5450
+P 950 5350
+F 0 "#FLG01" H 950 5425 50  0001 C CNN
+F 1 "PWR_FLAG" H 950 5523 50  0000 C CNN
+F 2 "" H 950 5350 50  0001 C CNN
+F 3 "~" H 950 5350 50  0001 C CNN
+	1    950  5350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1656,23 +1477,23 @@ Wire Wire Line
 $Comp
 L power:PWR_FLAG #FLG0102
 U 1 1 5E4A3517
-P 1250 6000
-F 0 "#FLG0102" H 1250 6075 50  0001 C CNN
-F 1 "PWR_FLAG" H 1250 6173 50  0000 C CNN
-F 2 "" H 1250 6000 50  0001 C CNN
-F 3 "~" H 1250 6000 50  0001 C CNN
-	1    1250 6000
+P 1250 5900
+F 0 "#FLG0102" H 1250 5975 50  0001 C CNN
+F 1 "PWR_FLAG" H 1250 6073 50  0000 C CNN
+F 2 "" H 1250 5900 50  0001 C CNN
+F 3 "~" H 1250 5900 50  0001 C CNN
+	1    1250 5900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1250 6000 1050 6000
+	1250 5900 1050 5900
 Wire Wire Line
-	1050 6000 1050 5900
+	1050 5900 1050 5800
 Wire Wire Line
-	1050 5900 900  5900
-Connection ~ 900  5900
+	1050 5800 900  5800
+Connection ~ 900  5800
 Wire Wire Line
-	900  5900 900  6000
+	900  5800 900  5900
 Wire Wire Line
 	4450 6400 4850 6400
 Text Notes 7950 1350 0    50   ~ 0
@@ -1702,6 +1523,194 @@ Connection ~ 2450 5450
 Wire Wire Line
 	2450 5450 2600 5450
 Text Notes 1300 9200 0    98   ~ 20
-Todo:\n- Replace rotary encoder with cheaper version that is easier to source: don’t need RGB LEDs\n- Battery choice: 18650, 18650 + charger or 2xAAA or ?
+Todo:\n- Battery choice: 18650, 18650 + charger or 2xAAA or ?\n- Select right angle slide switch for on/off
 NoConn ~ 4800 1950
+Wire Wire Line
+	13100 3350 13000 3350
+Wire Wire Line
+	13100 3300 13100 3350
+Wire Wire Line
+	13200 3300 13100 3300
+Wire Wire Line
+	13200 3350 13400 3350
+Wire Wire Line
+	13200 3550 13200 3350
+Wire Wire Line
+	13000 3550 13200 3550
+$Comp
+L power:GND #PWR0101
+U 1 1 5E1FAFC6
+P 13400 3350
+F 0 "#PWR0101" H 13400 3100 50  0001 C CNN
+F 1 "GND" H 13405 3177 50  0000 C CNN
+F 2 "" H 13400 3350 50  0001 C CNN
+F 3 "" H 13400 3350 50  0001 C CNN
+	1    13400 3350
+	-1   0    0    -1  
+$EndComp
+Text Label 13200 3300 0    50   ~ 0
+SW
+$Comp
+L power:GND #PWR0102
+U 1 1 5E1ED661
+P 12700 4100
+F 0 "#PWR0102" H 12700 3850 50  0001 C CNN
+F 1 "GND" H 12705 3927 50  0000 C CNN
+F 2 "" H 12700 4100 50  0001 C CNN
+F 3 "" H 12700 4100 50  0001 C CNN
+	1    12700 4100
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	13100 3900 13200 3900
+Wire Wire Line
+	13100 3850 13100 3900
+Wire Wire Line
+	13000 3850 13100 3850
+Wire Wire Line
+	13100 3700 13200 3700
+Wire Wire Line
+	13100 3750 13100 3700
+Wire Wire Line
+	13000 3750 13100 3750
+$Comp
+L Device:R R2
+U 1 1 5E1B3D00
+P 13350 3900
+F 0 "R2" V 13250 3850 50  0000 C CNN
+F 1 "220" V 13350 3900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 13280 3900 50  0001 C CNN
+F 3 "~" H 13350 3900 50  0001 C CNN
+	1    13350 3900
+	0    1    1    0   
+$EndComp
+Text Label 13550 3900 0    50   ~ 0
+encoder_LED_R
+Wire Wire Line
+	13550 3900 13500 3900
+$Comp
+L Device:R R1
+U 1 1 5E19206D
+P 13350 3700
+F 0 "R1" V 13250 3650 50  0000 C CNN
+F 1 "220" V 13350 3700 50  0000 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 13280 3700 50  0001 C CNN
+F 3 "~" H 13350 3700 50  0001 C CNN
+	1    13350 3700
+	0    1    1    0   
+$EndComp
+Text Label 13550 3700 0    50   ~ 0
+encoder_LED_G
+Wire Wire Line
+	13500 3700 13550 3700
+$Comp
+L power:GND #PWR0103
+U 1 1 5E187843
+P 11800 3450
+F 0 "#PWR0103" H 11800 3200 50  0001 C CNN
+F 1 "GND" H 11805 3277 50  0000 C CNN
+F 2 "" H 11800 3450 50  0001 C CNN
+F 3 "" H 11800 3450 50  0001 C CNN
+	1    11800 3450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	11800 3450 12400 3450
+Text Label 12250 3350 0    50   ~ 0
+A
+Text Label 12250 3550 0    50   ~ 0
+B
+Wire Wire Line
+	12250 3550 12400 3550
+Wire Wire Line
+	12250 3350 12400 3350
+$Comp
+L Jitter_Components:Rotary_Encoder_Switch_DualLED SW1
+U 1 1 5E184258
+P 12700 3450
+F 0 "SW1" H 12700 3817 50  0000 C CNN
+F 1 "Rotary_Encoder_Switch_DualLED" H 12700 3726 50  0000 C CNN
+F 2 "Jitter_Footprints:PEL12D-4xxxS-Sxxxx" H 12700 3900 50  0001 C CNN
+F 3 "https://nl.mouser.com/datasheet/2/54/PEL12D-777459.pdf" H 12700 3710 50  0001 C CNN
+	1    12700 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0104
+U 1 1 5E244FCD
+P 13650 6600
+F 0 "#PWR0104" H 13650 6450 50  0001 C CNN
+F 1 "+3V3" H 13665 6773 50  0000 C CNN
+F 2 "" H 13650 6600 50  0001 C CNN
+F 3 "" H 13650 6600 50  0001 C CNN
+	1    13650 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPDT SW2
+U 1 1 5E25D2BB
+P 1450 5450
+F 0 "SW2" H 1450 5735 50  0000 C CNN
+F 1 "SW_SPDT" H 1450 5644 50  0000 C CNN
+F 2 "Jitter_Footprints:slide_switch_09.03201.02" H 1450 5450 50  0001 C CNN
+F 3 "~" H 1450 5450 50  0001 C CNN
+	1    1450 5450
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 1250 5550
+$Comp
+L Mechanical:MountingHole_Pad H2
+U 1 1 5E2AC08D
+P 8450 7300
+F 0 "H2" H 8550 7349 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8550 7258 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 8450 7300 50  0001 C CNN
+F 3 "~" H 8450 7300 50  0001 C CNN
+	1    8450 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 5E2AC4E6
+P 8450 7400
+F 0 "#PWR04" H 8450 7150 50  0001 C CNN
+F 1 "GND" H 8455 7227 50  0000 C CNN
+F 2 "" H 8450 7400 50  0001 C CNN
+F 3 "" H 8450 7400 50  0001 C CNN
+	1    8450 7400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H3
+U 1 1 5E2ADF67
+P 8450 7850
+F 0 "H3" H 8550 7899 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8550 7808 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 8450 7850 50  0001 C CNN
+F 3 "~" H 8450 7850 50  0001 C CNN
+	1    8450 7850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 5E2ADF6D
+P 8450 7950
+F 0 "#PWR08" H 8450 7700 50  0001 C CNN
+F 1 "GND" H 8455 7777 50  0000 C CNN
+F 2 "" H 8450 7950 50  0001 C CNN
+F 3 "" H 8450 7950 50  0001 C CNN
+	1    8450 7950
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Regulator_Switching:TLV61046ADB U5
+U 1 1 5E2444EE
+P 2100 6800
+F 0 "U5" H 2100 7225 50  0000 C CNN
+F 1 "TLV61046ADB" H 2100 7134 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-6" H 2150 6650 50  0001 L CIN
+F 3 "http://www.ti.com/lit/ds/symlink/tlv61046a.pdf" H 2100 6900 50  0001 C CNN
+	1    2100 6800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
