@@ -1823,4 +1823,26 @@ Wire Wire Line
 	3450 4350 3700 4350
 NoConn ~ 2850 2150
 NoConn ~ 2850 2250
+$Comp
+L Mechanical:MountingHole_Pad H4
+U 1 1 5E5755E9
+P 8450 8400
+F 0 "H4" H 8550 8449 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8550 8358 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 8450 8400 50  0001 C CNN
+F 3 "~" H 8450 8400 50  0001 C CNN
+	1    8450 8400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E5755EF
+P 8450 8500
+F 0 "#PWR?" H 8450 8250 50  0001 C CNN
+F 1 "GND" H 8455 8327 50  0000 C CNN
+F 2 "" H 8450 8500 50  0001 C CNN
+F 3 "" H 8450 8500 50  0001 C CNN
+	1    8450 8500
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC
