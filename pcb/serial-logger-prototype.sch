@@ -1845,4 +1845,6 @@ F 3 "" H 8450 8500 50  0001 C CNN
 	1    8450 8500
 	-1   0    0    -1  
 $EndComp
+Text Notes 4850 3300 0    50   ~ 0
+(PC13-15: low\ncurrent only)
 $EndSCHEMATC
