@@ -901,7 +901,7 @@ OLED Connector
 Text Notes 8100 1350 0    118  ~ 24
 Microcontroller
 Text Notes 1300 6900 0    118  ~ 24
-Power: Batt -> 3.3V and 16.4V
+Power: Batt -> 2.8V and 16.4V
 Connection ~ 1750 7450
 Text Notes 5750 6900 0    118  ~ 24
 UART level translators
@@ -975,17 +975,6 @@ Wire Wire Line
 	950  7700 950  7800
 Wire Wire Line
 	4150 7450 4000 7450
-$Comp
-L power:+3V3 #PWR022
-U 1 1 5E21DE1E
-P 4150 7450
-F 0 "#PWR022" H 4150 7300 50  0001 C CNN
-F 1 "+3V3" H 4165 7623 50  0000 C CNN
-F 2 "" H 4150 7450 50  0001 C CNN
-F 3 "" H 4150 7450 50  0001 C CNN
-	1    4150 7450
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+3V3 #PWR014
 U 1 1 5E286E0A
@@ -1901,5 +1890,16 @@ F 2 "" H 9300 7650 50  0001 C CNN
 F 3 "" H 9300 7650 50  0001 C CNN
 	1    9300 7650
 	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+2V8 #PWR?
+U 1 1 5E3BE60D
+P 4150 7450
+F 0 "#PWR?" H 4150 7300 50  0001 C CNN
+F 1 "+2V8" H 4165 7623 50  0000 C CNN
+F 2 "" H 4150 7450 50  0001 C CNN
+F 3 "" H 4150 7450 50  0001 C CNN
+	1    4150 7450
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
