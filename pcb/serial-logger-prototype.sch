@@ -2054,10 +2054,10 @@ F 3 "~" H 9300 10150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole TH?
+L Mechanical:MountingHole TH2
 U 1 1 5E4D8439
 P 8850 9750
-F 0 "TH?" H 8950 9750 50  0000 L CNN
+F 0 "TH2" H 8950 9750 50  0000 L CNN
 F 1 "ToolingHole" H 8950 9705 50  0001 L CNN
 F 2 "Jitter_Footprints:Tooling_hole_4mm_4.04mm_paste" H 8850 9750 50  0001 C CNN
 F 3 "~" H 8850 9750 50  0001 C CNN
@@ -2065,10 +2065,10 @@ F 3 "~" H 8850 9750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole TH?
+L Mechanical:MountingHole TH1
 U 1 1 5E4D8C2B
 P 8850 9550
-F 0 "TH?" H 8950 9550 50  0000 L CNN
+F 0 "TH1" H 8950 9550 50  0000 L CNN
 F 1 "ToolingHole" H 8950 9505 50  0001 L CNN
 F 2 "Jitter_Footprints:Tooling_hole_4mm_4.04mm_paste" H 8850 9550 50  0001 C CNN
 F 3 "~" H 8850 9550 50  0001 C CNN
@@ -2076,10 +2076,10 @@ F 3 "~" H 8850 9550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole TH?
+L Mechanical:MountingHole TH3
 U 1 1 5E4D8CE5
 P 8850 9950
-F 0 "TH?" H 8950 9950 50  0000 L CNN
+F 0 "TH3" H 8950 9950 50  0000 L CNN
 F 1 "ToolingHole" H 8950 9905 50  0001 L CNN
 F 2 "Jitter_Footprints:Tooling_hole_4mm_4.04mm_paste" H 8850 9950 50  0001 C CNN
 F 3 "~" H 8850 9950 50  0001 C CNN
@@ -2087,10 +2087,10 @@ F 3 "~" H 8850 9950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole TH?
+L Mechanical:MountingHole TH4
 U 1 1 5E4D8E27
 P 8850 10150
-F 0 "TH?" H 8950 10150 50  0000 L CNN
+F 0 "TH4" H 8950 10150 50  0000 L CNN
 F 1 "ToolingHole" H 8950 10105 50  0001 L CNN
 F 2 "Jitter_Footprints:Tooling_hole_4mm_4.04mm_paste" H 8850 10150 50  0001 C CNN
 F 3 "~" H 8850 10150 50  0001 C CNN
