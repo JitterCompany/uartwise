@@ -1,4 +1,5 @@
 #!/bin/bash
-EXE_PATH=target/thumbv6m-none-eabi/debug
-arm-none-eabi-objcopy -O binary $EXE_PATH/oled-test $EXE_PATH/fw.bin
-st-flash --reset write $EXE_PATH/fw.bin 0x08000000
+FLASH_ADDRESS=$1
+ELF=$2
+arm-none-eabi-objcopy -O binary $ELF $ELF.bin
+st-flash --reset write $ELF.bin $FLASH_ADDRESS

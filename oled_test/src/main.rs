@@ -11,25 +11,29 @@ use cortex_m_rt::entry;
 use embedded_hal as hal;
 use hal::digital::v2::OutputPin;
 
-
 use stm32g0xx_hal::{
     prelude::*,
     stm32,
     spi,
     serial::Config,
-    rcc,
     gpio,
     exti::Event
-
 };
 
 use nb::block;
 
+mod interface;
+use crate::interface::SpiInterface;
+use crate::interface::DisplayInterface;
+
+
+mod command;
+use crate::command::{Command, DisplayMode, VcomhLevel};
 
 #[entry]
 fn main() -> ! {
     let dp = stm32::Peripherals::take().expect("cannot take peripherals");
-    let mut rcc = dp.RCC.constrain(); //freeze(rcc::Config::lsi());
+    let mut rcc = dp.RCC.constrain();
 
     let mut delay = dp.TIM15.delay(&mut rcc);
 
@@ -37,7 +41,7 @@ fn main() -> ! {
     let gpiob = dp.GPIOB.split(&mut rcc);
     let gpioc = dp.GPIOC.split(&mut rcc);
 
-    let mut btn = gpioc.pc13.into_pull_up_input();
+    let btn = gpioc.pc13.into_pull_up_input();
     let mut exti = dp.EXTI;
     btn.listen(gpio::SignalEdge::Falling, &mut exti);
 
@@ -64,45 +68,18 @@ fn main() -> ! {
     writeln!(usart, "Hello stm32g0\n").unwrap();
 
 
-
     led.set_high().unwrap();
     delay.delay(500.ms());
     led.set_low().unwrap();
 
-
-
-    // let mut sck = gpioa.pa1;
-    // // sck.set_alt_mode(gpio::AltFunction::AF0);
-    // let miso = gpioa.pa6;
-    // let mosi1 = gpioa.pa7;
     let sck = gpiob.pb3; // yellow 10
     let miso = gpiob.pb4;
     let mosi = gpiob.pb5; // green 9
-    let mut spi = dp.SPI1.spi(
+    let spi = dp.SPI1.spi(
         (sck, miso, mosi),
         spi::MODE_0,
         1000.khz(),
         &mut rcc);
-
-    // cs.set_low().unwrap();
-    // block!(spi.send(0x01)).unwrap();
-    // block!(spi.read()).unwrap();
-    // block!(spi.send(0x0)).unwrap();
-    // let res = block!(spi.read());
-    // cs.set_high().unwrap();
-
-    // match res {
-    //     Ok(b) => {
-    //         writeln!(usart, "Got byte {}", b).unwrap();
-
-    //         if b == 0xAD {
-    //             led.set_high().unwrap();
-    //         }
-    //     }
-    //     Err(e) => {
-    //         writeln!(usart, "Error: {:?}", e).unwrap();
-    //     },
-    // }
 
 
     writeln!(usart, "Start!").unwrap();
@@ -113,140 +90,45 @@ fn main() -> ! {
     rst.set_high().unwrap();
 
     // send configuration bytes
-    dc.set_low().unwrap();
     cs.set_low().unwrap();
-
-    // // Set Vdd Mode VCI = 3.3V
-    block!(spi.send(0xAB)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x01)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // // Set IREF selection
-    block!(spi.send(0xAD)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x9E)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // Set column address
-    block!(spi.send(0x15)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x00)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x7f)).unwrap();
-    block!(spi.read()).unwrap();
-
-
-    // // Set row address
-    block!(spi.send(0x75)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x00)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x3f)).unwrap();
-    block!(spi.read()).unwrap();
-
-
-    // // Set segment re-map
-    block!(spi.send(0xA0)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x43)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // Set display start line
-    block!(spi.send(0xA1)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x00)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // // Set display offset
-    block!(spi.send(0xA2)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x00)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // // Set normal display mode
-    block!(spi.send(0xA4)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // // Set multiplex ratio
-    block!(spi.send(0xA8)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x3F)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // // Set Phase1,2 length
-    block!(spi.send(0xB1)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x11)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // // Set display clock divide ratio
-    block!(spi.send(0xB3)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0xF0)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // // Grey scale table
-    block!(spi.send(0xB9)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // // Set pre-charge voltage
-    block!(spi.send(0xBC)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x04)).unwrap();
-    block!(spi.read()).unwrap();
-
-    // // Set VCOMH deselect level, 0.82 * Vcc
-    block!(spi.send(0xBE)).unwrap();
-    block!(spi.read()).unwrap();
-    block!(spi.send(0x05)).unwrap();
-    block!(spi.read()).unwrap();
-
-    cs.set_high().unwrap();
 
     writeln!(usart, "Turn on VCC!").unwrap();
 
+    let mut spi_interface = SpiInterface::new(spi, dc);
+    Command::InternalVDD(true).send(&mut spi_interface).unwrap();
+    Command::InternalIREF(true).send(&mut spi_interface).unwrap();
+    Command::ColumnAddress(0, 0x7f).send(&mut spi_interface).unwrap();
+    Command::RowAddress(0, 0x3f).send(&mut spi_interface).unwrap();
+
+    Command::Remap(0x43).send(&mut spi_interface).unwrap();
+    Command::StartLine(0).send(&mut spi_interface).unwrap();
+    Command::DisplayOffset(0).send(&mut spi_interface).unwrap();
+    Command::Mode(DisplayMode::Normal).send(&mut spi_interface).unwrap();
+    Command::Multiplex(0x3F).send(&mut spi_interface).unwrap();
+    Command::PhaseLength(0x11).send(&mut spi_interface).unwrap();
+    Command::DisplayClockDiv(0xF, 0x0).send(&mut spi_interface).unwrap();
+    Command::DefaultGrayScale().send(&mut spi_interface).unwrap();
+    Command::PreChargeVoltage(0x04).send(&mut spi_interface).unwrap();
+    Command::VcomhDeselect(VcomhLevel::V082).send(&mut spi_interface).unwrap();
 
 
+    for _i in 0..(256*64/8) {
+
+        spi_interface.send_data(&[0xDc, 0xA8, 0x64, 0x20]).unwrap();
+    }
 
     loop {
-
-
-        // delay.delay(500.ms());
-
-        // led.set_high().unwrap();
-
-        // delay.delay(500.ms());
-
-        // led.set_low().unwrap();
 
         if exti.is_pending(Event::GPIO13, gpio::SignalEdge::Falling) {
             led.toggle().unwrap();
             exti.unpend(Event::GPIO13);
 
+
+
             // display on
-            cs.set_low().unwrap();
-
-            block!(spi.send(0xAF)).unwrap();
-            block!(spi.read()).unwrap();
+            Command::DisplayOn(true).send(&mut spi_interface).unwrap();
 
 
-            delay.delay(1.ms());
-            dc.set_high().unwrap();
-
-            for _i in 0..(256*64/8) {
-
-                block!(spi.send(0xFF)).unwrap();
-                block!(spi.read()).unwrap();
-                block!(spi.send(0xFF)).unwrap();
-                block!(spi.read()).unwrap();
-                block!(spi.send(0x00)).unwrap();
-                block!(spi.read()).unwrap();
-                block!(spi.send(0x00)).unwrap();
-                block!(spi.read()).unwrap();
-            }
-
-            cs.set_high().unwrap();
 
         }
 
@@ -254,11 +136,3 @@ fn main() -> ! {
 
     }
 }
-
-
-// #[interrupt]
-// fn EXTI0_1() {
-
-//     ctx.resources.exti.unpend(Event::GPIO1);
-
-// }
