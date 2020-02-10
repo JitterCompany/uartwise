@@ -141,6 +141,8 @@ F 0 "H1" H 14100 3550 50  0000 L CNN
 F 1 "ELW2106AA" H 14100 3350 50  0000 L CNN
 F 2 "Jitter_Footprints:Molex_503480-1400-1x14-1MP_P0.5mm_Horizontal" H 14200 3350 50  0001 C CNN
 F 3 "https://nl.mouser.com/datasheet/2/921/Futaba-10-02-2018-ELW2106AA_A_03_SHORT-1487521.pdf" H 14200 3350 50  0001 C CNN
+F 4 "ELW2106AA" H 14200 3350 50  0001 C CNN "MPN"
+F 5 "387-ELW2106AA" H 14200 3350 50  0001 C CNN "Mouser"
 	1    14200 3350
 	1    0    0    -1  
 $EndComp
@@ -342,6 +344,9 @@ F 0 "BT1" H 1068 7696 50  0000 L CNN
 F 1 "Battery_Cell" H 650 7550 50  0001 L CNN
 F 2 "Jitter_Footprints:BatteryHolder_Keystone_1043(p)_1x18650" V 950 7660 50  0001 C CNN
 F 3 "~" V 950 7660 50  0001 C CNN
+F 4 "1043P" H 950 7600 50  0001 C CNN "MPN"
+F 5 "534-1043P" H 950 7600 50  0001 C CNN "Mouser"
+F 6 "1043" H 950 7600 50  0001 C CNN "Alt"
 	1    950  7600
 	1    0    0    -1  
 $EndComp
@@ -614,9 +619,13 @@ L Connector:Conn_ARM_JTAG_SWD_10 J1
 U 1 1 5E2790B4
 P 6850 3800
 F 0 "J1" H 6407 3846 50  0000 R CNN
-F 1 "Conn_ARM_JTAG_SWD_10" H 7150 2800 50  0000 R CNN
+F 1 "JTAG/SWD" H 7150 2800 50  0000 R CNN
 F 2 "Connector_PinHeader_1.27mm:PinHeader_2x05_P1.27mm_Vertical_SMD" H 6850 3800 50  0001 C CNN
 F 3 "http://infocenter.arm.com/help/topic/com.arm.doc.ddi0314h/DDI0314H_coresight_components_trm.pdf" V 6500 2550 50  0001 C CNN
+F 4 "FTSH-105-01-L-DV-K-P" H 6850 3800 50  0001 C CNN "MPN"
+F 5 "FTSH-105-01-L-DV (cheaper, no fancy shroud)" H 6850 3800 50  0001 C CNN "Alt"
+F 6 "2856437" H 6850 3800 50  0001 C CNN "Farnell"
+F 7 "200-FTSH10501LDVKP" H 6850 3800 50  0001 C CNN "Mouser"
 	1    6850 3800
 	1    0    0    -1  
 $EndComp
@@ -661,9 +670,10 @@ L Connector:Conn_01x04_Female J3
 U 1 1 5E291639
 P 5350 8200
 F 0 "J3" H 5242 8485 50  0000 C CNN
-F 1 "Conn_01x04_Female" H 5242 8394 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 5242 8394 50  0001 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Horizontal" H 5350 8200 50  0001 C CNN
 F 3 "~" H 5350 8200 50  0001 C CNN
+F 4 "2888929" H 5350 8200 50  0001 C CNN "Farnell"
 	1    5350 8200
 	-1   0    0    -1  
 $EndComp
@@ -690,6 +700,9 @@ F 0 "U4" H 7000 7700 50  0000 R CNN
 F 1 "sn74lv1t34" H 7100 7600 50  0000 R CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 7200 8000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lv1t34.pdf" H 7200 8000 50  0001 C CNN
+F 4 "SN74LV1T34DBVR" H 7250 7900 50  0001 C CNN "MPN"
+F 5 "595-SN74LV1T34DBVR" H 7250 7900 50  0001 C CNN "Mouser"
+F 6 "3119564" H 7250 7900 50  0001 C CNN "Farnell"
 	1    7250 7900
 	-1   0    0    -1  
 $EndComp
@@ -848,6 +861,9 @@ F 0 "U6" H 7344 9146 50  0000 L CNN
 F 1 "sn74lv1t34" H 7344 9055 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 6950 9200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lv1t34.pdf" H 6950 9200 50  0001 C CNN
+F 4 "SN74LV1T34DBVR" H 7000 9100 50  0001 C CNN "MPN"
+F 5 "595-SN74LV1T34DBVR" H 7000 9100 50  0001 C CNN "Mouser"
+F 6 "3119564" H 7000 9100 50  0001 C CNN "Farnell"
 	1    7000 9100
 	1    0    0    -1  
 $EndComp
@@ -945,6 +961,9 @@ F 1 "STM32G070KBT6" H 9300 2850 50  0000 C CNN
 F 2 "Package_QFP:LQFP-32_7x7mm_P0.8mm" H 9400 2850 50  0001 C CNN
 F 3 "https://www.st.com/resource/en/datasheet/stm32g070kb.pdf" H 9450 2850 50  0001 C CNN
 F 4 "https://www.st.com/content/ccc/resource/technical/document/reference_manual/group0/fd/a3/20/58/ac/b0/48/23/DM00463896/files/DM00463896.pdf/jcr:content/translations/en.DM00463896.pdf" H 9150 2850 50  0001 C CNN "Manual"
+F 5 "STM32G070KBT6" H 9300 2850 50  0001 C CNN "MPN"
+F 6 "3365394" H 9300 2850 50  0001 C CNN "Farnell"
+F 7 "511-STM32G070KBT6" H 9300 2850 50  0001 C CNN "Mouser"
 	1    9300 2850
 	1    0    0    -1  
 $EndComp
@@ -1142,6 +1161,8 @@ F 0 "U2" H 3000 4600 50  0000 C CNN
 F 1 "74LVC3G17" H 2850 4700 50  0000 C CNN
 F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 3200 4900 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3200 4900 50  0001 C CNN
+F 4 "SN74LVC3G17DCT" H 3200 4900 50  0001 C CNN "MPN"
+F 5 "1236391" H 3200 4900 50  0001 C CNN "Farnell"
 	2    3200 4900
 	1    0    0    -1  
 $EndComp
@@ -1164,6 +1185,8 @@ F 0 "U2" H 3000 3900 50  0000 C CNN
 F 1 "74LVC3G17" H 2850 4000 50  0000 C CNN
 F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 3200 4150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3200 4150 50  0001 C CNN
+F 4 "SN74LVC3G17DCT" H 3200 4150 50  0001 C CNN "MPN"
+F 5 "1236391" H 3200 4150 50  0001 C CNN "Farnell"
 	1    3200 4150
 	1    0    0    -1  
 $EndComp
@@ -1298,6 +1321,8 @@ F 0 "U3" H 3250 7892 50  0000 C CNN
 F 1 "TLV70228_SOT23-5" H 3250 7801 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 3250 7875 50  0001 C CIN
 F 3 "http://www.ti.com/lit/ds/symlink/tlv702.pdf" H 3250 7600 50  0001 C CNN
+F 4 "TLV70228DBVT" H 3250 7550 50  0001 C CNN "MPN"
+F 5 "2492371" H 3250 7550 50  0001 C CNN "Farnell"
 	1    3250 7550
 	1    0    0    -1  
 $EndComp
@@ -1417,6 +1442,9 @@ F 0 "SW1" H 2150 2317 50  0000 C CNN
 F 1 "Rotary_Encoder_Switch_DualLED" H 2150 2226 50  0000 C CNN
 F 2 "Jitter_Footprints:PEL12D-4xxxS-Sxxxx" H 2150 2400 50  0001 C CNN
 F 3 "https://nl.mouser.com/datasheet/2/54/PEL12D-777459.pdf" H 2150 2210 50  0001 C CNN
+F 4 "PEL12D-4225S-S2024" H 2150 1950 50  0001 C CNN "MPN"
+F 5 "652-PEL12D4225SS2024" H 2150 1950 50  0001 C CNN "Mouser"
+F 6 "PEL12D-4225S-S1024 (blue/orange LEDS)" H 2150 1950 50  0001 C CNN "Alternative"
 	1    2150 1950
 	1    0    0    -1  
 $EndComp
@@ -1428,6 +1456,8 @@ F 0 "SW2" H 1500 7735 50  0000 C CNN
 F 1 "SW_SPDT" H 1500 7644 50  0000 C CNN
 F 2 "Jitter_Footprints:slide_switch_09.03201.02" H 1500 7450 50  0001 C CNN
 F 3 "~" H 1500 7450 50  0001 C CNN
+F 4 "09.03201.02" H 1500 7450 50  0001 C CNN "MPN"
+F 5 "1608080" H 1500 7450 50  0001 C CNN "Farnell"
 	1    1500 7450
 	-1   0    0    -1  
 $EndComp
@@ -1437,7 +1467,7 @@ L Mechanical:MountingHole_Pad H2
 U 1 1 5E2AC08D
 P 9950 9300
 F 0 "H2" H 10050 9349 50  0000 L CNN
-F 1 "MountingHole_Pad" H 10050 9258 50  0000 L CNN
+F 1 "DNI" H 10050 9258 50  0001 L CNN
 F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 9950 9300 50  0001 C CNN
 F 3 "~" H 9950 9300 50  0001 C CNN
 	1    9950 9300
@@ -1459,7 +1489,7 @@ L Mechanical:MountingHole_Pad H3
 U 1 1 5E2ADF67
 P 9950 9850
 F 0 "H3" H 10050 9899 50  0000 L CNN
-F 1 "MountingHole_Pad" H 10050 9808 50  0000 L CNN
+F 1 "DNI" H 10050 9808 50  0001 L CNN
 F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 9950 9850 50  0001 C CNN
 F 3 "~" H 9950 9850 50  0001 C CNN
 	1    9950 9850
@@ -1484,6 +1514,8 @@ F 0 "U5" H 2750 9625 50  0000 C CNN
 F 1 "TLV61046ADB" H 2750 9534 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-6" H 2800 9050 50  0001 L CIN
 F 3 "http://www.ti.com/lit/ds/symlink/tlv61046a.pdf" H 2750 9300 50  0001 C CNN
+F 4 "TLV61046ADBV" H 2750 9200 50  0001 C CNN "MPN"
+F 5 "3007283" H 2750 9200 50  0001 C CNN "Farnell"
 	1    2750 9200
 	1    0    0    -1  
 $EndComp
@@ -1640,7 +1672,7 @@ L Mechanical:MountingHole_Pad H4
 U 1 1 5E5755E9
 P 9950 10400
 F 0 "H4" H 10050 10449 50  0000 L CNN
-F 1 "MountingHole_Pad" H 10050 10358 50  0000 L CNN
+F 1 "DNI" H 10050 10358 50  0001 L CNN
 F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 9950 10400 50  0001 C CNN
 F 3 "~" H 9950 10400 50  0001 C CNN
 	1    9950 10400
@@ -1678,6 +1710,8 @@ F 0 "U2" H 2950 3150 50  0000 C CNN
 F 1 "74LVC3G17" H 2800 3250 50  0000 C CNN
 F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 3200 3400 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3200 3400 50  0001 C CNN
+F 4 "SN74LVC3G17DCT" H 3200 3400 50  0001 C CNN "MPN"
+F 5 "1236391" H 3200 3400 50  0001 C CNN "Farnell"
 	3    3200 3400
 	1    0    0    -1  
 $EndComp
@@ -1819,6 +1853,7 @@ F 0 "J2" H 9642 7425 50  0000 C CNN
 F 1 "Conn_01x04_Female" H 9642 7516 50  0000 C CNN
 F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 9750 7850 50  0001 C CNN
 F 3 "~" H 9750 7850 50  0001 C CNN
+F 4 "1593460" H 9750 7850 50  0001 C CNN "Farnell"
 	1    9750 7850
 	-1   0    0    1   
 $EndComp
@@ -2014,7 +2049,7 @@ L Mechanical:MountingHole MB1
 U 1 1 5E4D4528
 P 9300 9550
 F 0 "MB1" H 9400 9550 50  0000 L CNN
-F 1 "MouseBite" H 9400 9505 50  0001 L CNN
+F 1 "DNI" H 9400 9505 50  0001 L CNN
 F 2 "Jitter_Footprints:MouseBite_3.5mmx2.2mm_breakaway" H 9300 9550 50  0001 C CNN
 F 3 "~" H 9300 9550 50  0001 C CNN
 	1    9300 9550
@@ -2025,7 +2060,7 @@ L Mechanical:MountingHole MB2
 U 1 1 5E4D469E
 P 9300 9750
 F 0 "MB2" H 9400 9750 50  0000 L CNN
-F 1 "MouseBite" H 9400 9705 50  0001 L CNN
+F 1 "DNI" H 9400 9705 50  0001 L CNN
 F 2 "Jitter_Footprints:MouseBite_3.5mmx2.2mm_breakaway" H 9300 9750 50  0001 C CNN
 F 3 "~" H 9300 9750 50  0001 C CNN
 	1    9300 9750
@@ -2036,7 +2071,7 @@ L Mechanical:MountingHole MB3
 U 1 1 5E4D495B
 P 9300 9950
 F 0 "MB3" H 9400 9950 50  0000 L CNN
-F 1 "MouseBite" H 9400 9905 50  0001 L CNN
+F 1 "DNI" H 9400 9905 50  0001 L CNN
 F 2 "Jitter_Footprints:MouseBite_3.5mmx2.2mm_breakaway" H 9300 9950 50  0001 C CNN
 F 3 "~" H 9300 9950 50  0001 C CNN
 	1    9300 9950
@@ -2047,7 +2082,7 @@ L Mechanical:MountingHole MB4
 U 1 1 5E4D4A15
 P 9300 10150
 F 0 "MB4" H 9400 10150 50  0000 L CNN
-F 1 "MouseBite" H 9400 10105 50  0001 L CNN
+F 1 "DNI" H 9400 10105 50  0001 L CNN
 F 2 "Jitter_Footprints:MouseBite_3.5mmx2.2mm_breakaway" H 9300 10150 50  0001 C CNN
 F 3 "~" H 9300 10150 50  0001 C CNN
 	1    9300 10150
@@ -2058,7 +2093,7 @@ L Mechanical:MountingHole TH2
 U 1 1 5E4D8439
 P 8850 9750
 F 0 "TH2" H 8950 9750 50  0000 L CNN
-F 1 "ToolingHole" H 8950 9705 50  0001 L CNN
+F 1 "DNI" H 8950 9705 50  0001 L CNN
 F 2 "Jitter_Footprints:Tooling_hole_4mm_4.04mm_paste" H 8850 9750 50  0001 C CNN
 F 3 "~" H 8850 9750 50  0001 C CNN
 	1    8850 9750
@@ -2069,7 +2104,7 @@ L Mechanical:MountingHole TH1
 U 1 1 5E4D8C2B
 P 8850 9550
 F 0 "TH1" H 8950 9550 50  0000 L CNN
-F 1 "ToolingHole" H 8950 9505 50  0001 L CNN
+F 1 "DNI" H 8950 9505 50  0001 L CNN
 F 2 "Jitter_Footprints:Tooling_hole_4mm_4.04mm_paste" H 8850 9550 50  0001 C CNN
 F 3 "~" H 8850 9550 50  0001 C CNN
 	1    8850 9550
@@ -2080,7 +2115,7 @@ L Mechanical:MountingHole TH3
 U 1 1 5E4D8CE5
 P 8850 9950
 F 0 "TH3" H 8950 9950 50  0000 L CNN
-F 1 "ToolingHole" H 8950 9905 50  0001 L CNN
+F 1 "DNI" H 8950 9905 50  0001 L CNN
 F 2 "Jitter_Footprints:Tooling_hole_4mm_4.04mm_paste" H 8850 9950 50  0001 C CNN
 F 3 "~" H 8850 9950 50  0001 C CNN
 	1    8850 9950
@@ -2091,10 +2126,12 @@ L Mechanical:MountingHole TH4
 U 1 1 5E4D8E27
 P 8850 10150
 F 0 "TH4" H 8950 10150 50  0000 L CNN
-F 1 "ToolingHole" H 8950 10105 50  0001 L CNN
+F 1 "DNI" H 8950 10105 50  0001 L CNN
 F 2 "Jitter_Footprints:Tooling_hole_4mm_4.04mm_paste" H 8850 10150 50  0001 C CNN
 F 3 "~" H 8850 10150 50  0001 C CNN
 	1    8850 10150
 	1    0    0    -1  
 $EndComp
+Text Notes 1400 5600 0    50   ~ 0
+TODO all 10k resistors\nsame footprint!
 $EndSCHEMATC
