@@ -1,0 +1,41 @@
+[package]
+name = "seriallogger"
+version = "0.1.0"
+authors = ["Ingmar Jager <ingmarjager@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[dependencies]
+cortex-m = "0.6.2"
+cortex-m-rt = "0.6.12"
+cortex-m-rtfm = "0.5.1"
+panic-halt = "0.2.0"
+nb = "0.1.2"
+ssd1362 = {path = "../../rust/ssd1362"}
+display-interface-spi = "0.4.0"
+
+[dependencies.embedded-hal]
+version = "0.2.3"
+features = ["unproven"]
+
+[dependencies.stm32g0xx-hal]
+features = ["stm32g07x", "rt"]
+version = "0.0.8"
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[profile.release]
+opt-level = 's'
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size on Flash
+lto = true # better optimizations
+
+
+
+[features]
+use_flash = []
+full_erase = []
