@@ -3,15 +3,15 @@
 use embedded_hal as hal;
 use hal::digital::v2::OutputPin;
 
-// use crate::Error;
-/// Errors in this crate
-#[derive(Debug)]
-pub enum Error<CommE, PinE> {
-    /// Communication error
-    Comm(CommE),
-    /// Pin setting error
-    Pin(PinE),
-}
+use crate::error::Error;
+// /// Errors in this crate
+// #[derive(Debug)]
+// pub enum Error<CommE, PinE> {
+//     /// Communication error
+//     Comm(CommE),
+//     /// Pin setting error
+//     Pin(PinE),
+// }
 
 /// A method of communicating with SSD1306
 pub trait DisplayInterface {
@@ -53,6 +53,10 @@ where
     pub fn new(spi: SPI, dc: DC) -> Self {
         Self { spi, dc }
     }
+
+    // pub fn release(&mut self) -> (SPI, DC) {
+    //     (self.spi, self.dc)
+    // }
 }
 
 impl<SPI, DC, CommE, PinE> DisplayInterface for SpiInterface<SPI, DC>
@@ -86,10 +90,9 @@ where
     ) -> Result<(), Self::Error> {
         self.dc.set_high().map_err(Error::Pin)?;
 
-        // Divide by 8 since each row is actually 8 pixels tall
-        let height = ((lower_right.1 - upper_left.1) / 8) as usize;
+        let height = ((lower_right.1 - upper_left.1)) as usize;
 
-        let starting_page = (upper_left.1 / 8) as usize;
+        let starting_page = (upper_left.1) as usize;
 
         let mut page_offset = starting_page * disp_width;
 
@@ -105,4 +108,5 @@ where
 
         Ok(())
     }
+
 }
