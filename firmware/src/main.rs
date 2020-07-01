@@ -7,12 +7,15 @@ use core::fmt::Write;
 extern crate panic_halt; // you can put a breakpoint on `rust_begin_unwind` to catch panics
 
 use display_interface_spi::SPIInterface;
+use arrayvec::ArrayString;
 
 use embedded_hal as hal;
 use hal::digital::v2::OutputPin;
 
 mod encoder;
 use encoder::{Encoder, Channel};
+
+use nb;
 
 use stm32g0xx_hal::{
     prelude::*,
@@ -58,6 +61,8 @@ const APP: () = {
         exti: EXTI,
         encoder: Enc,
         tx: serial::Tx<stm32::USART1>,
+        rx: serial::Rx<stm32::USART1>,
+        uart_in_buffer: ArrayString::<[u8; 1024]>,
     }
 
     #[init(spawn = [startup])]
@@ -106,13 +111,13 @@ const APP: () = {
 
         let mut usart = dp
         .USART1 // tx      // rx
-        .usart(gpioa.pa9, gpioa.pa10, Config::default().baudrate(115200.bps()), &mut rcc)
+        .usart(gpioa.pa9, gpioa.pa10, Config::default().baudrate(9600.bps()), &mut rcc)
         .unwrap();
 
         writeln!(usart, "Hello SerialLogger\n").unwrap();
 
         led_g.set_high().unwrap();
-        delay.delay(500.ms());
+        delay.delay(2500.ms());
         led_g.set_low().unwrap();
 
         let sck = gpiob.pb3; // yellow 10
@@ -145,13 +150,18 @@ const APP: () = {
 
         writeln!(usart, "Display init done!").unwrap();
         writeln!(terminal, "Display init done!").unwrap();
+        writeln!(terminal, "Line2").unwrap();
+        writeln!(terminal, "Line3").unwrap();
+        writeln!(terminal, "Line4").unwrap();
 
+        terminal.render().unwrap();
         let mut timer = dp.TIM1.timer(&mut rcc);
-        timer.start(1.hz());
+        timer.start(10.hz());
         timer.listen();
 
-        let (tx, _rx) = usart.split();
+        let (tx, mut rx) = usart.split();
 
+        rx.listen();
 
         cx.spawn.startup().ok();
 
@@ -162,7 +172,9 @@ const APP: () = {
             timer,
             exti,
             encoder,
-            tx
+            tx,
+            rx,
+            uart_in_buffer: ArrayString::new(),
         }
     }
 
@@ -170,11 +182,15 @@ const APP: () = {
     fn startup(_cx: startup::Context) {
     }
 
-    #[task(binds=TIM1_BRK_UP_TRG_COMP, resources = [timer], priority = 1, spawn = [])]
+    #[task(binds=TIM1_BRK_UP_TRG_COMP, resources = [timer, terminal], priority = 1, spawn = [])]
     fn timer(cx: timer::Context) {
         let timer::Resources {
-            timer
+            timer,
+            mut terminal
         } = cx.resources;
+
+        terminal.lock(|terminal| terminal.render().unwrap());
+
         timer.clear_irq();
     }
 
@@ -222,12 +238,75 @@ const APP: () = {
             }
         });
 
-        terminal.lock(|terminal| writeln!(terminal, "<== button ==>").unwrap());
+        terminal.lock(|terminal| writeln!(terminal, " <== button ==>").unwrap());
     }
+
+    #[task(priority = 3, resources=[terminal, uart_in_buffer, tx], capacity = 100)]
+    fn uart_buffer(cx: uart_buffer::Context, byte: Result<u8, nb::Error<serial::Error>>) {
+
+        let uart_buffer::Resources {
+            mut terminal,
+            uart_in_buffer,
+            mut tx
+        } = cx.resources;
+
+
+
+
+        match byte {
+            Ok(b) => {
+                // tx.lock(|tx| writeln!(tx, "go byte: {:?}", b).unwrap());
+                match uart_in_buffer.try_push(b as char) {
+                    Ok(_n)  => {},
+                    Err(_buffer_error) => {
+                        // uart_in_buffer.clear();
+                        return;
+                    }
+                }
+
+                // tx.lock(|tx| nb::block!(tx.write(b)).unwrap());
+                // tx.lock(|tx| nb::block!(tx.write(0xA)).unwrap());
+
+
+                if b == b'\n' {
+                    // led_g.toggle().unwrap();
+
+                    // add line to terminal
+                    // terminal.lock(|terminal| write!(terminal, "New line\n").unwrap());
+                    let string = &uart_in_buffer[0..uart_in_buffer.len()];
+                    terminal.lock(|terminal| terminal.write_string(string).unwrap());
+                    uart_in_buffer.clear();
+
+                }
+            }
+            Err(_e) => {
+                // writeln!(uart_in_buffer, "{:?}", _e).unwrap();
+                // write_string_to_queue(ext_p, uart_in_buffer);
+                // uart_in_buffer.clear();
+                tx.lock(|tx| writeln!(tx, "{:?}", _e).unwrap());
+            }
+        }
+
+
+    }
+
+    #[task(binds = USART1, resources = [rx, led_g], priority = 7, spawn=[uart_buffer])]
+    fn usart_in(cx: usart_in::Context) {
+
+        let usart_in::Resources {
+            rx,
+            led_g,
+        } = cx.resources;
+
+        led_g.toggle().unwrap();
+        cx.spawn.uart_buffer(rx.read()).ok();
+    }
+
 
      // Interrupt handlers used to dispatch software tasks
      extern "C" {
         fn SPI2();
+        fn I2C1();
     }
 
 };

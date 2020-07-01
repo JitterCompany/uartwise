@@ -1,8 +1,5 @@
 
 
-#target extended-remote /dev/cu.usbmodem*1
-#target extended-remote /dev/cu.usbmodem*1
-
 monitor swdp_scan
 attach 1
 monitor traceswo

@@ -16,6 +16,10 @@ nb = "0.1.2"
 ssd1362 = {path = "../../rust/ssd1362"}
 display-interface-spi = "0.4.0"
 
+[dependencies.arrayvec]
+version = "0.5.1"
+default-features = false
+
 [dependencies.embedded-hal]
 version = "0.2.3"
 features = ["unproven"]
@@ -25,7 +29,7 @@ features = ["stm32g07x", "rt"]
 version = "0.0.8"
 
 [profile.dev]
-opt-level = 0
+opt-level = 2
 debug = true
 
 [profile.release]

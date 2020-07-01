@@ -2135,4 +2135,6 @@ F 3 "~" H 8850 10150 50  0001 C CNN
 $EndComp
 Text Notes 1400 5600 0    50   ~ 0
 TODO all 10k resistors\nsame footprint!
+Text Notes 8150 7200 0    50   ~ 0
+Maybe we can connect this to a gpio pin \nso you can override it
 $EndSCHEMATC
