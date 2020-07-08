@@ -2137,4 +2137,6 @@ Text Notes 1400 5600 0    50   ~ 0
 TODO all 10k resistors\nsame footprint!
 Text Notes 8150 7200 0    50   ~ 0
 Maybe we can connect this to a gpio pin \nso you can override it
+Text Notes 6800 8350 0    50   ~ 0
+TODO check footprint:\nlooks like the pads are a bit far apart..?
 $EndSCHEMATC
