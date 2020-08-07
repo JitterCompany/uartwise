@@ -19,13 +19,14 @@ use nb;
 
 use stm32g0xx_hal::{
     prelude::*,
-    stm32::{self, SPI1, EXTI},
+    stm32::{self, SPI1, EXTI, TIM15},
     spi,
-    serial::{self, Config},
+    serial::{self, FullConfig, FifoThreshold, Error as SerialError},
     gpio,
     timer::Timer,
     exti::Event,
     rcc,
+    delay::Delay
 };
 
 use ssd1362::{self, display::DisplayRotation, terminal, Font6x8};
@@ -60,9 +61,14 @@ const APP: () = {
         timer: Timer<stm32::TIM1>,
         exti: EXTI,
         encoder: Enc,
-        tx: serial::Tx<stm32::USART1>,
-        rx: serial::Rx<stm32::USART1>,
+        tx: serial::Tx<stm32::USART1, FullConfig>,
+        rx: serial::Rx<stm32::USART1, FullConfig>,
         uart_in_buffer: ArrayString::<[u8; 1024]>,
+        debug_pin1: gpio::gpiob::PB8<gpio::Output<gpio::PushPull>>,
+        debug_pin2: gpio::gpiob::PB9<gpio::Output<gpio::PushPull>>,
+        debug_pin3: gpio::gpioa::PA11<gpio::Output<gpio::PushPull>>,
+        debug_pin4: gpio::gpioa::PA12<gpio::Output<gpio::PushPull>>,
+        delay: Delay<TIM15>
     }
 
     #[init(spawn = [startup])]
@@ -109,10 +115,14 @@ const APP: () = {
         let mut rst = gpiob.pb6.into_push_pull_output();
         rst.set_high().unwrap();
 
-        let mut usart = dp
-        .USART1 // tx      // rx
-        .usart(gpioa.pa9, gpioa.pa10, Config::default().baudrate(9600.bps()), &mut rcc)
-        .unwrap();
+        let mut usart = dp.USART1.usart( gpioa.pa9, gpioa.pa10,
+            FullConfig::default()
+                .baudrate(115200.bps())
+                .fifo_enable()
+                .rx_fifo_threshold(FifoThreshold::FIFO_4_BYTES)
+                .rx_fifo_enable_interrupt()
+                .receiver_timeout_us(25_000),
+            &mut rcc).unwrap();
 
         writeln!(usart, "Hello SerialLogger\n").unwrap();
 
@@ -150,18 +160,28 @@ const APP: () = {
 
         writeln!(usart, "Display init done!").unwrap();
         writeln!(terminal, "Display init done!").unwrap();
-        writeln!(terminal, "Line2").unwrap();
-        writeln!(terminal, "Line3").unwrap();
-        writeln!(terminal, "Line4").unwrap();
+        writeln!(terminal, " -> ").unwrap();
 
         terminal.render().unwrap();
         let mut timer = dp.TIM1.timer(&mut rcc);
         timer.start(10.hz());
         timer.listen();
 
-        let (tx, mut rx) = usart.split();
+        let (tx, rx) = usart.split();
 
-        rx.listen();
+        // rx.listen();
+
+        let mut debug_pin1 = gpiob.pb8.into_push_pull_output();
+        debug_pin1.set_low().unwrap();
+
+        let mut debug_pin2 = gpiob.pb9.into_push_pull_output();
+        debug_pin2.set_low().unwrap();
+
+        let mut debug_pin3 = gpioa.pa11.into_push_pull_output();
+        debug_pin3.set_low().unwrap();
+
+        let mut debug_pin4 = gpioa.pa12.into_push_pull_output();
+        debug_pin4.set_low().unwrap();
 
         cx.spawn.startup().ok();
 
@@ -175,6 +195,11 @@ const APP: () = {
             tx,
             rx,
             uart_in_buffer: ArrayString::new(),
+            debug_pin1,
+            debug_pin2,
+            debug_pin3,
+            debug_pin4,
+            delay
         }
     }
 
@@ -182,35 +207,37 @@ const APP: () = {
     fn startup(_cx: startup::Context) {
     }
 
-    #[task(binds=TIM1_BRK_UP_TRG_COMP, resources = [timer, terminal], priority = 1, spawn = [])]
+    #[task(binds=TIM1_BRK_UP_TRG_COM, resources = [timer, terminal, debug_pin3], priority = 3, spawn = [])]
     fn timer(cx: timer::Context) {
         let timer::Resources {
             timer,
-            mut terminal
+            terminal,
+            debug_pin3,
         } = cx.resources;
 
-        terminal.lock(|terminal| terminal.render().unwrap());
+        debug_pin3.set_high().unwrap();
+        terminal.render().unwrap();
+        debug_pin3.set_low().unwrap();
 
         timer.clear_irq();
+
     }
 
-    #[task(binds=EXTI0_1, resources = [exti, encoder, terminal], priority = 6, spawn = [])]
+    #[task(binds=EXTI0_1, resources = [exti, encoder], priority = 4, spawn = [])]
     fn encoder_a(cx: encoder_a::Context) {
 
         let encoder_a::Resources {
             exti,
             encoder,
-            terminal
         } = cx.resources;
 
         if exti.is_pending(Event::GPIO1, gpio::SignalEdge::Rising) {
             let (position, _step) = encoder.update(Channel::A);
             exti.unpend(Event::GPIO1);
-            writeln!(terminal, "encoder a: {}", position).unwrap();
         }
     }
 
-    #[task(binds=EXTI2_3, resources = [exti, encoder, tx], priority = 6, spawn = [])]
+    #[task(binds=EXTI2_3, resources = [exti, encoder, tx], priority = 4, spawn = [])]
     fn encoder_b(cx: encoder_b::Context) {
         let encoder_b::Resources {
             exti,
@@ -225,11 +252,11 @@ const APP: () = {
         }
     }
 
-    #[task(binds=EXTI4_15, resources = [terminal, exti], priority = 1, spawn = [])]
+    #[task(binds=EXTI4_15, resources = [tx, exti], priority = 1, spawn = [])]
     fn button(cx: button::Context) {
         let button::Resources {
-            mut terminal,
-            mut exti
+            mut tx,
+            mut exti,
         } = cx.resources;
 
         exti.lock(|exti| {
@@ -237,69 +264,82 @@ const APP: () = {
                 exti.unpend(Event::GPIO8);
             }
         });
-
-        terminal.lock(|terminal| writeln!(terminal, " <== button ==>").unwrap());
+        tx.lock(|tx| writeln!(tx, " <== button ==>").unwrap());
     }
 
-    #[task(priority = 3, resources=[terminal, uart_in_buffer, tx], capacity = 100)]
-    fn uart_buffer(cx: uart_buffer::Context, byte: Result<u8, nb::Error<serial::Error>>) {
+    #[task(priority = 1, resources=[terminal, uart_in_buffer], capacity = 100)]
+    fn uart_buffer(cx: uart_buffer::Context, byte: u8) { //Result<u8, nb::Error<serial::Error>>) {
 
         let uart_buffer::Resources {
             mut terminal,
-            uart_in_buffer,
-            mut tx
+            uart_in_buffer
         } = cx.resources;
 
-
-
-
-        match byte {
-            Ok(b) => {
-                // tx.lock(|tx| writeln!(tx, "go byte: {:?}", b).unwrap());
-                match uart_in_buffer.try_push(b as char) {
-                    Ok(_n)  => {},
-                    Err(_buffer_error) => {
-                        // uart_in_buffer.clear();
-                        return;
-                    }
-                }
-
-                // tx.lock(|tx| nb::block!(tx.write(b)).unwrap());
-                // tx.lock(|tx| nb::block!(tx.write(0xA)).unwrap());
-
-
-                if b == b'\n' {
-                    // led_g.toggle().unwrap();
-
-                    // add line to terminal
-                    // terminal.lock(|terminal| write!(terminal, "New line\n").unwrap());
-                    let string = &uart_in_buffer[0..uart_in_buffer.len()];
-                    terminal.lock(|terminal| terminal.write_string(string).unwrap());
-                    uart_in_buffer.clear();
-
-                }
-            }
-            Err(_e) => {
-                // writeln!(uart_in_buffer, "{:?}", _e).unwrap();
-                // write_string_to_queue(ext_p, uart_in_buffer);
+        let b = byte;
+        match uart_in_buffer.try_push(b as char) {
+            Ok(_n)  => {},
+            Err(_buffer_error) => {
                 // uart_in_buffer.clear();
-                tx.lock(|tx| writeln!(tx, "{:?}", _e).unwrap());
+                return;
             }
         }
 
+        if b == b'\n' {
+            let string = &uart_in_buffer[0..uart_in_buffer.len()];
+            terminal.lock(|terminal| terminal.write_string(string).unwrap());
+            uart_in_buffer.clear();
 
+        }
     }
 
-    #[task(binds = USART1, resources = [rx, led_g], priority = 7, spawn=[uart_buffer])]
+    #[task(binds = USART1, resources = [rx, led_r, debug_pin1,debug_pin2], priority = 4, spawn=[uart_buffer])]
     fn usart_in(cx: usart_in::Context) {
 
         let usart_in::Resources {
             rx,
-            led_g,
+            led_r,
+            debug_pin1,
+            debug_pin2
         } = cx.resources;
 
-        led_g.toggle().unwrap();
-        cx.spawn.uart_buffer(rx.read()).ok();
+        debug_pin1.set_high().unwrap();
+
+        loop {
+            match rx.read() {
+                Err(nb::Error::WouldBlock) => {
+                    break;
+                },
+                Err(nb::Error::Other(err)) => {
+                    led_r.set_high().unwrap();
+                    match err {
+                        SerialError::Overrun => {
+                            cx.spawn.uart_buffer('O' as u8).ok();
+                            debug_pin2.set_high().unwrap();
+                        },
+                        SerialError::Framing => {
+                            cx.spawn.uart_buffer('F' as u8).ok();
+                        }
+                        SerialError::Noise => {
+                            cx.spawn.uart_buffer('N' as u8).ok();
+                        },
+                        SerialError::Parity => {
+                            cx.spawn.uart_buffer('P' as u8).ok();
+                        }
+                    }
+                    cx.spawn.uart_buffer('\n' as u8).ok();
+                },
+                Ok(byte) => {
+                    cx.spawn.uart_buffer(byte).ok();
+                },
+            }
+        }
+
+        if rx.timeout_lapsed() {
+            rx.clear_timeout();
+        }
+
+        debug_pin1.set_low().unwrap();
+        debug_pin2.set_low().unwrap();
     }
 
 

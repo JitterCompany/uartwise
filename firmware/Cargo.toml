@@ -25,11 +25,12 @@ version = "0.2.3"
 features = ["unproven"]
 
 [dependencies.stm32g0xx-hal]
-features = ["stm32g07x", "rt"]
-version = "0.0.8"
+path = "../../rust/stm32g0xx-hal"
+features = ["stm32g070", "rt"]
+# version = "0.0.8"
 
 [profile.dev]
-opt-level = 2
+opt-level = 3
 debug = true
 
 [profile.release]
