@@ -51,7 +51,7 @@ type Enc = Encoder<
     gpio::gpiob::PB<gpio::Input<gpio::PushPull>>
     >;
 
-#[rtfm::app(device = stm32g0xx_hal::stm32)]
+#[rtic::app(device = stm32g0xx_hal::stm32)]
 const APP: () = {
 
     struct Resources {

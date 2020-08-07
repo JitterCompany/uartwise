@@ -8,9 +8,9 @@ edition = "2018"
 
 
 [dependencies]
-cortex-m = "0.6.2"
+cortex-m = "0.6.3"
 cortex-m-rt = "0.6.12"
-cortex-m-rtfm = "0.5.1"
+cortex-m-rtic = "0.5.3"
 panic-halt = "0.2.0"
 nb = "0.1.2"
 ssd1362 = {path = "../../rust/ssd1362"}
@@ -21,7 +21,7 @@ version = "0.5.1"
 default-features = false
 
 [dependencies.embedded-hal]
-version = "0.2.3"
+version = "0.2.4"
 features = ["unproven"]
 
 [dependencies.stm32g0xx-hal]
